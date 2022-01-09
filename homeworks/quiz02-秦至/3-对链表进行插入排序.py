@@ -35,19 +35,24 @@ class ListNode:
 
 
 def insert_sort_linked_list(head):
-    dummy = ListNode(-1, head)
-    p1 = dummy
-    while p1:
-        p2 = p1
-        while p2.next and p2.next.next:
-            if p2.next.val <= p2.next.next.val:
-                p2 = p2.next
-            else:
-                temp = p2.next.next
-                p2.next.next = temp.next
-                temp.next = p2.next
-                p2.next = temp
+    if not head:
+        return head
 
-        p1 = p1.next
+    dummyHead = ListNode(0)
+    dummyHead.next = head
+    lastSorted = head
+    curr = head.next
 
+    while curr:
+        if lastSorted.val <= curr.val:
+            lastSorted = lastSorted.next
+        else:
+            prev = dummyHead
+            while prev.next.val <= curr.val:
+                prev = prev.next
+            lastSorted.next = curr.next
+            curr.next = prev.next
+            prev.next = curr
+        curr = lastSorted.next
 
+    return dummyHead.next
