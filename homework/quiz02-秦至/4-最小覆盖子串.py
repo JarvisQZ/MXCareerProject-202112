@@ -38,5 +38,6 @@ def zui_xiao_fu_gai_zi_chuan(s, t):
 
     left, right = 0, 0
     while right < len(s):
+        pass
 
 
