@@ -22,7 +22,7 @@
 
 
 def inverse_vowel(word):
-    vowels = 'aeiou'
+    vowels = 'aeiouAEIOU'
     word_list = list(word)
     length = len(word)
     if length < 2:
