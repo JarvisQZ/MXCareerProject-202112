@@ -27,17 +27,46 @@
 因此没有符合条件的子字符串，返回空字符串。
 """
 
+from collections import defaultdict
+
 
 def zui_xiao_fu_gai_zi_chuan(s, t):
     if len(t) > len(s):
         return ''
 
-    dic = {}
-    for item in t:
-        dic[item] = 0
+    need, window = defaultdict(int), defaultdict(int)
+    for char in t:
+        need[char] += 1
 
     left, right = 0, 0
+    valid = 0
+    start = 0
+    length = len(s) + 1
+
     while right < len(s):
-        pass
+        c = s[right]
+        right += 1
+        if c in need:
+            window[c] += 1
+            if window[c] == need[c]:
+                valid += 1
+
+        while valid == len(need):
+            if right - left < length:
+                start = left
+                length = right - left
+
+            d = s[left]
+            left += 1
+            if d in need:
+                if window[d] == need[d]:
+                    valid -= 1
+                window[d] -= 1
+
+    return "".join(s[start:start + length]) if length < len(s) else ''
 
 
+if __name__ == '__main__':
+    s = "ADOBECODEBANC"
+    t = "ABC"
+    print(zui_xiao_fu_gai_zi_chuan(s, t))
